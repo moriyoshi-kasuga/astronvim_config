@@ -34,7 +34,6 @@ return {
 
   { import = "astrocommunity.editing-support.neogen" },
 
-  { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   {
     "m4xshen/smartcolumn.nvim",
