@@ -1,18 +1,21 @@
 return {
   lsp = {
     formatting = {
+      format_on_save = true,
+      disabled = { "prettierd" },
       filter = function(client)
-        print(client.name)
-        if client.name == "prettierd" then return false end
+        -- only enable null-ls for javascript files
+        if vim.bo.filetype == "html" then return client.name ~= "null-ls" end
+
+        -- enable all other clients
         return true
       end,
-      format_on_save = true, -- enable or disable automatic formatting on save
     },
   },
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
-    channel = "stable", -- "stable" or "nightly"
+    channel = "nightlyl", -- "stable" or "nightly"
     version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
     branch = "nightly", -- branch name (NIGHTLY ONLY)
     commit = nil, -- commit hash (NIGHTLY ONLY)
