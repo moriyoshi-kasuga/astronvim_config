@@ -5,6 +5,7 @@ return {
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.html-css" },
 
   { import = "astrocommunity.colorscheme.nightfox-nvim" },
   { import = "astrocommunity.colorscheme.kanagawa-nvim" },
@@ -35,11 +36,10 @@ return {
 
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
-  -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" }, Nvim version of 10.0 >
   {
     "m4xshen/smartcolumn.nvim",
     opts = {
-      colorcolumn = 88,
+      colorcolumn = 120,
       disabled_filetypes = { "help" },
     },
   },

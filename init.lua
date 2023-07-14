@@ -1,4 +1,14 @@
 return {
+  lsp = {
+    formatting = {
+      filter = function(client)
+        print(client.name)
+        if client.name == "prettierd" then return false end
+        return true
+      end,
+      format_on_save = true, -- enable or disable automatic formatting on save
+    },
+  },
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
@@ -18,7 +28,7 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "tokyonight-night",
+  colorscheme = "catppuccin",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
