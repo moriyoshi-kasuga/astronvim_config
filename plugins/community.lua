@@ -5,8 +5,8 @@ return {
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.pack.html-css" },
 
+  { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.colorscheme.nightfox-nvim" },
   { import = "astrocommunity.colorscheme.kanagawa-nvim" },
   { import = "astrocommunity.colorscheme.rose-pine" },
@@ -28,11 +28,11 @@ return {
       },
     },
   },
-  { import = "astrocommunity.colorscheme.tokyonight-nvim" },
 
   { import = "astrocommunity.syntax.hlargs-nvim" },
 
   { import = "astrocommunity.editing-support.neogen" },
+  { import = "astrocommunity.motion.nvim-surround" },
 
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   {
