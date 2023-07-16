@@ -16,6 +16,7 @@ return {
       function() require("todo-comments").jump_prev() end,
       desc = "Previous todo comment",
     },
+    ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
   },
   t = {
     -- setting a mapping to false will disable it
