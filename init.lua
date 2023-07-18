@@ -1,14 +1,22 @@
 return {
   lsp = {
+    config = {
+      denols = function(opts)
+        opts.root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
+        return opts
+      end,
+      tsserver = function(opts)
+        opts.root_dir = require("lspconfig.util").root_pattern "package.json"
+        return opts
+      end,
+      eslint = function(opts)
+        opts.root_dir = require("lspconfig.util").root_pattern("package.json", ".eslintrc.json", ".eslintrc.js")
+        return opts
+      end,
+    },
     formatting = {
-      format_on_save = true, -- enable or disable automatic formatting on save
-      timeout_ms = 3200, -- adjust the timeout_ms variable for formatting
-      -- disabled = { "prettierd" },
       filter = function(client)
-        -- only enable null-ls for javascript files
-        -- if vim.bo.filetype == "html" then return client.name ~= "null-ls" end
-
-        -- enable all other clients
+        if vim.bo.filetype == "javascript" then return client.name == "null-ls" end
         return true
       end,
     },
