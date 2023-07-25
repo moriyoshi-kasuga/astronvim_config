@@ -17,6 +17,7 @@ return {
     formatting = {
       disabled = { "lua_ls", "prettierd" },
       filter = function(client)
+        if vim.bo.filetype == "html" then return client.name == "null-ls" end
         if vim.bo.filetype == "javascript" then return client.name == "null-ls" end
         return true
       end,
