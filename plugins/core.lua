@@ -6,10 +6,10 @@ return {
     },
     config = function()
       require("obsidian").setup {
-        dir = "~/Library/Mobile Documents/iCloud~md~obsidian",
+        -- Required, the path to your vault directory.
+        dir = "~/my-vault",
 
-        -- see below for full list of options 👇
-        -- -- Optional, if you keep notes in a specific subdirectory of your vault.
+        -- Optional, if you keep notes in a specific subdirectory of your vault.
         notes_subdir = "notes",
 
         -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
