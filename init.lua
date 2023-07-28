@@ -27,8 +27,12 @@ return {
     },
   },
 
-  -- Set colorscheme to use
-  colorscheme = "tokyonight-moon",
+  -- colorscheme = "astrodark",
+  -- colorscheme = "tokyonight",
+  colorscheme = "nightfox",
+  -- colorscheme = "kanagawa",
+  -- colorscheme = "rose-pine",
+  -- colorscheme = "catppuccin",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
