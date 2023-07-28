@@ -28,11 +28,11 @@ return {
   },
 
   -- colorscheme = "astrodark",
-  -- colorscheme = "tokyonight",
+  colorscheme = "tokyonight",
   -- colorscheme = "nightfox",
   -- colorscheme = "kanagawa",
   -- colorscheme = "rose-pine",
-  colorscheme = "catppuccin",
+  -- colorscheme = "catppuccin",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
