@@ -19,7 +19,6 @@ return {
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
   },
   t = {
-    -- setting a mapping to false will disable it
-    -- ["<esc>"] = false,
+    ["<C-h>"] = { "<Bs>" },
   },
 }
