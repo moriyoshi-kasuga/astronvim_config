@@ -314,28 +314,6 @@
 
 /*BLOCK: After This Of My added*/
 
-.mermaid .edgeLabel {
-  background-color: hsl(0, 0%, 34.4117647059%) !important;
-}
-
 .mermaid span.edgeLabel:not(:empty) {
   padding: 0.5rem;
-}
-
-.mermaid span {
-  fill: #ccc !important;
-  color: #ccc !important;
-}
-
-.mermaid .label {
-  color: #ccc !important;
-}
-
-.mermaid .flowchart-link {
-  stroke: lightgrey;
-}
-
-.mermaid .node :is(rect, polygon) {
-  fill: #1f2020 !important;
-  stroke: #81b1db !important;
 }
