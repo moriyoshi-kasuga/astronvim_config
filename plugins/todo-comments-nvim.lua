@@ -13,6 +13,7 @@ return {
         -- signs = false, -- configure signs for some keywords individually
       },
       TODO = { icon = " ", color = "info" },
+      BLOCK = { icon = "󰟾", color = "block" },
       HACK = { icon = " ", color = "warning" },
       WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
       PERF = { icon = "󰅒", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
@@ -47,6 +48,7 @@ return {
       warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
       info = { "DiagnosticInfo", "#2563EB" },
       hint = { "DiagnosticHint", "#10B981" },
+      block = { "DiagnosticBlock", "#929796" },
       default = { "Identifier", "#7C3AED" },
       test = { "Identifier", "#FF00FF" },
     },
