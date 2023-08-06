@@ -314,6 +314,6 @@
 
 /*BLOCK: After This Of My added*/
 
-.mermaid span.edgeLabel:not(:empty) {
+.mermaid g.edgeLabel span.edgeLabel:not(:empty) {
   padding: 0.5rem;
 }
