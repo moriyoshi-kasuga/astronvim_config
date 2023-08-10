@@ -1,6 +1,7 @@
 return {
   lsp = {
     formatting = {
+      timeout_ms = 5000, -- default format timeout
       disabled = { "lua_ls", "prettierd" },
       filter = function(client)
         if vim.bo.filetype == "html" then return client.name == "null-ls" end
