@@ -1,0 +1,6 @@
+{
+  "lambda": {
+    "prefix": "lambda",
+    "body": "${0}(${1}) => {\n\t${2}\n}"
+  }
+}
