@@ -2,11 +2,11 @@
   "lambda": {
     "prefix": "lambda",
     "description": "function lambda",
-    "body": "${0}(${1}) => {\n\t${2}\n}"
+    "body": "(${1}) => {\n\t${2}\n}${0}"
   },
   "olambda": {
     "prefix": "olambda",
     "description": "one line lambda",
-    "body": "${0}(${1}) => ${2}"
+    "body": "(${1}) => ${2}${0}"
   }
 }
