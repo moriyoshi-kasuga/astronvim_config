@@ -28,6 +28,12 @@ return {
 
   plugins = {
     {
+      "williamboman/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = { "html-lsp", "ccs-lsp", "djlint" },
+      },
+    },
+    {
       "jay-babu/mason-null-ls.nvim",
       opts = {
         handlers = {
