@@ -1,4 +1,5 @@
 return {
+  vim.cmd "set clipboard+=unnamedplus",
   lsp = {
     config = {
       denols = function(opts)
