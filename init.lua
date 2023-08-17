@@ -34,10 +34,11 @@ return {
   },
 
   -- colorscheme = "astrodark",
-  colorscheme = "tokyonight",
+  colorscheme = "vscode",
+  -- colorscheme = "tokyonight",
+  -- colorscheme = "tokyodark",
   -- colorscheme = "nightfox",
   -- colorscheme = "kanagawa",
-  -- colorscheme = "rose-pine",
   -- colorscheme = "catppuccin",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
