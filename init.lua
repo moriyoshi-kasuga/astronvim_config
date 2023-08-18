@@ -7,14 +7,6 @@ return {
     },
   },
 
-  plugins = {
-    {
-      "williamboman/mason-lspconfig.nvim",
-      opts = {
-        ensure_installed = { "html-lsp", "ccs-lsp", "djlint" },
-      },
-    },
-  },
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
