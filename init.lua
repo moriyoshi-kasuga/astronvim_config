@@ -7,6 +7,22 @@ return {
     },
   },
 
+  plugins = {
+    {
+      "L3MON4D3/LuaSnip",
+      config = function(plugin, opts)
+        -- include the default astronvim config that calls the setup call
+        require "plugins.configs.luasnip"(plugin, opts)
+
+        require("luasnip").filetype_extend("htmldjango", { "html" })
+
+        require("luasnip.loaders.from_vscode").lazy_load {
+          paths = { "./lua/user/snippets" },
+        }
+      end,
+    },
+  },
+
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
