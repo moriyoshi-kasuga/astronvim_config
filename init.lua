@@ -1,5 +1,4 @@
 return {
-  vim.cmd "set clipboard+=unnamedplus",
   lsp = {
     formatting = {
       format_on_save = true,
