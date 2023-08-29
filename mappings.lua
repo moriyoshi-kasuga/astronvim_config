@@ -17,6 +17,7 @@ return {
       desc = "Previous todo comment",
     },
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
+    ["<leader>fd"] = { "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
   },
   t = {
     ["<C-h>"] = { "<Bs>" },
