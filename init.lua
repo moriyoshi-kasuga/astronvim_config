@@ -24,8 +24,8 @@ return {
     },
   },
 
-  -- colorscheme = "astrodark",
-  colorscheme = "vscode",
+  colorscheme = "astrodark",
+  -- colorscheme = "vscode",
   -- colorscheme = "tokyonight",
   -- colorscheme = "tokyodark",
   -- colorscheme = "nightfox",
