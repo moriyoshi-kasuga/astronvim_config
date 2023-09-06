@@ -35,4 +35,9 @@ return {
     priority = 1000,
     lazy = false,
   },
+  {
+    "AstroNvim/astrotheme",
+    priority = 1000,
+    lazy = false,
+  },
 }
