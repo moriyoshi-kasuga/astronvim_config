@@ -1,8 +1,10 @@
 return {
   lsp = {
     formatting = {
-      format_on_save = true,
-      timeout_ms = 5000, -- default format timeout
+      format_on_save = {
+        enabled = false, -- enable or disable format on save globally
+      },
+      timeout_ms = 5000,
     },
   },
 

@@ -16,6 +16,13 @@ return {
       function() require("todo-comments").jump_prev() end,
       desc = "Previous todo comment",
     },
+    ["<leader>r"] = {
+      function()
+        vim.lsp.buf.format { async = false }
+        vim.cmd "update"
+      end,
+      desc = "format",
+    },
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
     ["<leader>fd"] = { "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
   },
