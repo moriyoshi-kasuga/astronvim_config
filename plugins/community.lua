@@ -7,6 +7,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.html-css" },
+  { import = "astrocommunity.pack.php" },
 
   -- { import = "astrocommunity.project.neoconf-nvim" },
 
