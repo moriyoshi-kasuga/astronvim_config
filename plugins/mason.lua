@@ -1,3 +1,4 @@
+local utils = require "astronvim.utils"
 -- customize mason plugins
 return {
 
@@ -17,13 +18,13 @@ return {
 
       if not opts.handlers then opts.handlers = {} end
 
-      local has_stylelint = function(utils)
-        return utils.root_has_file ".stylelint"
-          or utils.root_has_file ".stylelintrc.json"
-          or utils.root_has_file ".stylelintrc.yml"
-          or utils.root_has_file ".stylelintrc.yaml"
-          or utils.root_has_file ".stylelintrc.js"
-          or utils.root_has_file "stylelint.config.js"
+      local has_stylelint = function(util)
+        return util.root_has_file ".stylelint"
+          or util.root_has_file ".stylelintrc.json"
+          or util.root_has_file ".stylelintrc.yml"
+          or util.root_has_file ".stylelintrc.yaml"
+          or util.root_has_file ".stylelintrc.js"
+          or util.root_has_file "stylelint.config.js"
       end
 
       opts.handlers.stylelint = function()
@@ -37,6 +38,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = function(_, opts)
       if not opts.handlers then opts.handlers = {} end
+      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "emmet_ls" })
       local lspconfig = require "lspconfig"
       opts.handlers.emmet_ls = function()
         lspconfig["emmet_ls"].setup {

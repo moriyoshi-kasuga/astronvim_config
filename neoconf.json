@@ -18,9 +18,6 @@
     },
     "pyright": {
       "python.analysis.typeCheckingMode": "off"
-    },
-    "html": {
-      "html.format.enable": false
     }
   }
 }
