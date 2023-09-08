@@ -9,8 +9,6 @@ return {
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.php" },
 
-  -- { import = "astrocommunity.project.neoconf-nvim" },
-
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
   { import = "astrocommunity.syntax.hlargs-nvim" },

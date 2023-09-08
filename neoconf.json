@@ -1,7 +1,26 @@
 {
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": true
+    }
+  },
+  "neoconf": {
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  },
   "lspconfig": {
+    "lua_ls": {
+      "Lua.format.enable": false
+    },
     "pyright": {
       "python.analysis.typeCheckingMode": "off"
+    },
+    "html": {
+      "html.format.enable": false
     }
   }
 }
