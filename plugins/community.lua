@@ -8,6 +8,7 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.tailwindcss" },
+  { import = "astrocommunity.pack.docker" },
 
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
