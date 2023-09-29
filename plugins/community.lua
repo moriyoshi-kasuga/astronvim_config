@@ -9,6 +9,7 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.docker" },
+  { import = "astrocommunity.pack.ruby" },
 
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
