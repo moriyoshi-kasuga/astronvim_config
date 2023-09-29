@@ -7,6 +7,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.bash" },
+  { import = "astrocommunity.pack.tailwindcss" },
 
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
