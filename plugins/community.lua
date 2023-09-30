@@ -10,6 +10,7 @@ return {
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.yaml" },
+  { import = "astrocommunity.pack.prisma" },
 
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
