@@ -40,4 +40,28 @@ return {
     priority = 1000,
     lazy = false,
   },
+  { "rktjmp/lush.nvim" },
+  {
+    "stevedylandev/flexoki-nvim",
+    priority = 1000,
+    lazy = false,
+    name = "flexoki",
+  },
+  {
+    "aswathkk/DarkScene.vim",
+    priority = 1000,
+    lazy = false,
+  },
+  {
+    "uloco/bluloco.nvim",
+    lazy = false,
+    priority = 1000,
+    dependencies = { "rktjmp/lush.nvim" },
+  },
+{
+    "kartikp10/noctis.nvim",
+    lazy = false,
+    priority = 1000,
+    dependencies = { "rktjmp/lush.nvim" },
+  }
 }
