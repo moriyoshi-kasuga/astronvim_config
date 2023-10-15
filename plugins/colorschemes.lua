@@ -58,10 +58,20 @@ return {
     priority = 1000,
     dependencies = { "rktjmp/lush.nvim" },
   },
-{
+  {
     "kartikp10/noctis.nvim",
     lazy = false,
     priority = 1000,
     dependencies = { "rktjmp/lush.nvim" },
-  }
+  },
+  {
+    "olimorris/onedarkpro.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      options = {
+        highlight_inactive_windows = true,
+      },
+    },
+  },
 }

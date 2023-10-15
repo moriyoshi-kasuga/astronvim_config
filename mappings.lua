@@ -3,6 +3,7 @@
 -- Please use this mappings table to set keyboard mapping since this is the
 -- lower level configuration and more robust one. (which-key will
 -- automatically pick-up stored data by this setting.)
+
 return {
   -- first key is the mode
   n = {
@@ -18,13 +19,53 @@ return {
     },
     ["<leader>r"] = {
       function()
-        vim.lsp.buf.format { async = false }
+        vim.lsp.buf.format { async = true }
         vim.cmd "update"
       end,
       desc = "format",
     },
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
     ["<leader>fd"] = { "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
+    ["<leader>z"] = {
+      name = "Translate",
+    },
+    ["<leader>ze"] = {
+      "<cmd>Translate en<cr>",
+      desc = "translate to en",
+    },
+    ["<leader>zj"] = {
+      "<cmd>Translate ja<cr>",
+      desc = "translate to ja",
+    },
+    ["<leader>zr"] = {
+      "<cmd>Translate en -output=replace<cr>",
+      desc = "translate to en of replace",
+    },
+    ["<leader>zk"] = {
+      "<cmd>Translate ja -output=replace<cr>",
+      desc = "translate to ja of replace",
+    },
+  },
+  v = {
+    ["<leader>z"] = {
+      name = "Translate",
+    },
+    ["<leader>ze"] = {
+      "<cmd>Translate en<cr>",
+      desc = "translate to en",
+    },
+    ["<leader>zj"] = {
+      "<cmd>Translate ja<cr>",
+      desc = "translate to ja",
+    },
+    ["<leader>zr"] = {
+      "<cmd>Translate en -output=replace<cr>",
+      desc = "translate to en of replace",
+    },
+    ["<leader>zk"] = {
+      "<cmd>Translate ja -output=replace<cr>",
+      desc = "translate to ja of replace",
+    },
   },
   t = {
     ["<C-h>"] = { "<Bs>" },
