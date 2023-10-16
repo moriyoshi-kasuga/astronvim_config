@@ -2,12 +2,6 @@ return {
   { "unblevable/quick-scope", lazy = false },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-    },
     opts = {
       filesystem = {
         filtered_items = {
@@ -15,6 +9,11 @@ return {
         },
       },
     },
+  },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    event = "User AstroFile",
   },
   {
     "uga-rosa/translate.nvim",

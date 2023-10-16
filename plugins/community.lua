@@ -18,7 +18,6 @@ return {
 
   { import = "astrocommunity.syntax.hlargs-nvim" },
 
-  { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
   { import = "astrocommunity.editing-support.neogen" },
 
   { import = "astrocommunity.motion.nvim-surround" },
