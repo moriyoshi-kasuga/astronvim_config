@@ -13,7 +13,11 @@ return {
   {
     "HiPhish/rainbow-delimiters.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    event = "User AstroFile",
+    event = "VeryLazy",
+  },
+  {
+    "skanehira/jumpcursor.vim",
+    lazy = false
   },
   {
     "uga-rosa/translate.nvim",

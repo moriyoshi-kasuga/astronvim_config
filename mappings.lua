@@ -24,6 +24,10 @@ return {
       end,
       desc = "format",
     },
+    ["[j"] = {
+      "<Plug>(jumpcursor-jump)",
+      desc = "jump cursor",
+    },
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
     ["<leader>fd"] = { "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
     ["<leader>z"] = {
