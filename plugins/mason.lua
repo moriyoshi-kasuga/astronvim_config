@@ -40,6 +40,14 @@ return {
       if not opts.handlers then opts.handlers = {} end
       opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "emmet_ls" })
       local lspconfig = require "lspconfig"
+      opts.handlers.clangd = function()
+        ---@diagnostic disable-next-line: missing-fields
+        lspconfig["clangd"].setup {
+          capabilities = {
+            offsetEncoding = "utf-8",
+          },
+        }
+      end
       opts.handlers.emmet_ls = function()
         lspconfig["emmet_ls"].setup {
           filetypes = {
