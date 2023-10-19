@@ -11,7 +11,6 @@ return {
     },
   },
   opt = {
-    signcolumn = "no",
     wrap = true,
   },
 }
