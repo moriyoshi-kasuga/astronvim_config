@@ -69,4 +69,39 @@ return {
   --     })
   --   end,
   -- },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      handlers = {
+        codelldb = function(source_name)
+          local dap = require "dap"
+          dap.adapters = {
+            codelldb = {
+              type = "server",
+              port = "${port}",
+              executable = {
+                command = vim.fn.stdpath "data" .. "/mason/packages/codelldb/extension/adapter/codelldb",
+                args = { "--port", "${port}" },
+              },
+            },
+          }
+
+          dap.configurations = {
+            cpp = {
+              {
+                name = "Launch file",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
+                end,
+                cwd = "${workspaceFolder}",
+                stopOnEntry = false, -- trueだとバイナリのデバッグになっちゃう(なんで?)
+              },
+            },
+          }
+        end,
+      },
+    },
+  },
 }
