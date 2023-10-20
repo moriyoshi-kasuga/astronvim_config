@@ -105,7 +105,7 @@ return {
       function() vim.lsp.buf.format { async = true } end,
       desc = "format",
     },
-    ["[j"] = {
+    [";"] = {
       "<Plug>(jumpcursor-jump)",
       desc = "jump cursor",
     },
