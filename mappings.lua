@@ -102,7 +102,10 @@ return {
       desc = "Previous todo comment",
     },
     ["<leader>r"] = {
-      function() vim.lsp.buf.format { async = true } end,
+      function()
+        vim.lsp.buf.format { async = false }
+        vim.cmd "update"
+      end,
       desc = "format",
     },
     [";"] = {
