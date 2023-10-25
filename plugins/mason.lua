@@ -1,4 +1,5 @@
 local utils = require "astronvim.utils"
+
 -- customize mason plugins
 return {
 
@@ -93,10 +94,17 @@ return {
                 type = "codelldb",
                 request = "launch",
                 program = function()
-                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
+                  local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%", "file")
+                  local directory = path:match "^(.*/)"
+                  local fileBase = path:match "^.*/(.*)%..*$"
+                  local basePath = directory .. fileBase
+                  local compileCmd = "g++ -std=c++17 -g " .. path .. " -o " .. basePath
+                  local job_id = vim.fn.jobstart(compileCmd)
+                  vim.fn.jobwait({ job_id }, -1)
+                  return basePath
                 end,
                 cwd = "${workspaceFolder}",
-                stopOnEntry = false, -- trueだとバイナリのデバッグになっちゃう(なんで?)
+                stopOnEntry = false,
               },
             },
           }
