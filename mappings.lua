@@ -27,7 +27,7 @@ local function RunCode()
     cpp = {
       default = "g++ -std=c++17 % -o  $fileBase && ./$fileBase",
       debug = "g++ -std=c++17 -g % -o  $fileBase",
-      competitive = "g++ -std=c++17 -Wall -DAL -O2 % -o $fileBase && ./$fileBase < $fileBase.txt",
+      competitive = "g++ -std=c++17 -Wall -DAL -O2 % -o $fileBase && ./$fileBase < $dir/input.txt",
     },
     py = {
       default = "python %",
