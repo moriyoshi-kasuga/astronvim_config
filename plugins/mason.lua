@@ -60,16 +60,6 @@ return {
     end,
   },
 
-  -- {
-  --   "jay-babu/mason-nvim-dap.nvim",
-  --   -- overrides `require("mason-nvim-dap").setup(...)`
-  --   opts = function(_, opts)
-  --     -- add more things to the ensure_installed table protecting against community packs modifying it
-  --     opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-  --       -- "python",
-  --     })
-  --   end,
-  -- },
   {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {
@@ -96,9 +86,57 @@ return {
                 program = function()
                   return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
                 end,
-                args = { "<", "${workspaceFolder}/input.txt" },
-                runInTerminal = true,
-                cwd = "${workspaceFolder}",
+                cwd = "${fileDirname}",
+                stopOnEntry = false,
+              },
+              {
+                name = "Launch file with input.txt",
+                type = "codelldb",
+                request = "launch",
+                stdio = "${fileDirname}/input.txt",
+                program = function()
+                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
+                end,
+                cwd = "${fileDirname}",
+                stopOnEntry = false,
+              },
+              {
+                name = "Compile and Launch file",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                  local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%", "file")
+                  local directory = path:match "^(.*/)"
+                  local fileBase = path:match "^.*/(.*)%..*$"
+                  local basePath = directory .. fileBase
+                  local compileCmd = require("user.myutils").supported_filetypes["cpp"]["debug"]
+                    :gsub("%%", path)
+                    :gsub("$fileBase", basePath)
+                  local job_id = vim.fn.jobstart(compileCmd)
+                  vim.fn.jobwait({ job_id }, -1)
+                  return basePath
+                end,
+                cwd = "${fileDirname}",
+                stopOnEntry = false,
+              },
+              {
+                name = "Compile and Launch file with input.txt",
+                type = "codelldb",
+                request = "launch",
+                stdio = "${fileDirname}/input.txt",
+                program = function()
+                  local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%", "file")
+                  local directory = path:match "^(.*/)"
+                  local fileBase = path:match "^.*/(.*)%..*$"
+                  local basePath = directory .. fileBase
+                  local compileCmd = require("user.myutils").supported_filetypes["cpp"]["debug"]
+                    :gsub("%%", path)
+                    :gsub("$fileBase", basePath)
+                  local job_id = vim.fn.jobstart(compileCmd)
+                  vim.fn.jobwait({ job_id }, -1)
+                  return basePath
+                end,
+                cwd = "${fileDirname}",
                 stopOnEntry = false,
               },
             },
