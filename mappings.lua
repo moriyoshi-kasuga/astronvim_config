@@ -9,61 +9,62 @@ local function substitute(cmd)
   return cmd
 end
 
+local supported_filetypes = {
+  html = {
+    default = "%",
+  },
+  c = {
+    default = "gcc % -o $fileBase && $fileBase",
+    debug = "gcc -g % -o $fileBase && $fileBase",
+  },
+  cs = {
+    default = "dotnet run",
+  },
+  cpp = {
+    default = "g++ -std=c++17 % -o  $fileBase && ./$fileBase",
+    debug = "g++ -std=c++17 -g % -o  $fileBase",
+    competitive = "g++ -std=c++17 -Wall -DAL -O2 % -o $fileBase && ./$fileBase < $dir/input.txt",
+  },
+  py = {
+    default = "python %",
+  },
+  go = {
+    default = "go run %",
+  },
+  java = {
+    default = "java %",
+  },
+  js = {
+    default = "node %",
+    debug = "node --inspect %",
+  },
+  ts = {
+    default = "tsc % && node $fileBase",
+  },
+  rs = {
+    default = "rustc % && $fileBase",
+  },
+  php = {
+    default = "php %",
+  },
+  r = {
+    default = "Rscript %",
+  },
+  jl = {
+    default = "julia %",
+  },
+  rb = {
+    default = "ruby %",
+  },
+  pl = {
+    default = "perl %",
+  },
+}
+
 local function RunCode()
   local file_extension = vim.fn.expand "%:e"
   local selected_cmd = ""
   local term_cmd = "bot 10 new | term "
-  local supported_filetypes = {
-    html = {
-      default = "%",
-    },
-    c = {
-      default = "gcc % -o $fileBase && $fileBase",
-      debug = "gcc -g % -o $fileBase && $fileBase",
-    },
-    cs = {
-      default = "dotnet run",
-    },
-    cpp = {
-      default = "g++ -std=c++17 % -o  $fileBase && ./$fileBase",
-      debug = "g++ -std=c++17 -g % -o  $fileBase",
-      competitive = "g++ -std=c++17 -Wall -DAL -O2 % -o $fileBase && ./$fileBase < $dir/input.txt",
-    },
-    py = {
-      default = "python %",
-    },
-    go = {
-      default = "go run %",
-    },
-    java = {
-      default = "java %",
-    },
-    js = {
-      default = "node %",
-      debug = "node --inspect %",
-    },
-    ts = {
-      default = "tsc % && node $fileBase",
-    },
-    rs = {
-      default = "rustc % && $fileBase",
-    },
-    php = {
-      default = "php %",
-    },
-    r = {
-      default = "Rscript %",
-    },
-    jl = {
-      default = "julia %",
-    },
-    rb = {
-      default = "ruby %",
-    },
-    pl = {
-      default = "perl %",
-    },
-  }
 
   if supported_filetypes[file_extension] then
     local choices = vim.tbl_keys(supported_filetypes[file_extension])
@@ -92,6 +93,21 @@ return {
     ["<leader>dm"] = {
       function() RunCode() end,
       desc = "RunCode",
+    },
+    ["<leader>dd"] = {
+      function()
+        local file_extension = vim.fn.expand "%:e"
+
+        local choices = supported_filetypes[file_extension]
+        if choices and choices["debug"] then
+          local job_id = vim.fn.jobstart(substitute(choices["debug"]))
+          vim.fn.jobwait({ job_id }, -1)
+          vim.notify "Compile exit."
+        else
+          vim.notify(file_extension .. " extension is not support compile.", "error")
+        end
+      end,
+      desc = "Compile",
     },
     ["]o"] = {
       function() require("todo-comments").jump_next() end,

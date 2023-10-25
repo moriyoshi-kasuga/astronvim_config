@@ -94,15 +94,10 @@ return {
                 type = "codelldb",
                 request = "launch",
                 program = function()
-                  local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%", "file")
-                  local directory = path:match "^(.*/)"
-                  local fileBase = path:match "^.*/(.*)%..*$"
-                  local basePath = directory .. fileBase
-                  local compileCmd = "g++ -std=c++17 -g " .. path .. " -o " .. basePath
-                  local job_id = vim.fn.jobstart(compileCmd)
-                  vim.fn.jobwait({ job_id }, -1)
-                  return basePath
+                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
                 end,
+                args = { "<", "${workspaceFolder}/input.txt" },
+                runInTerminal = true,
                 cwd = "${workspaceFolder}",
                 stopOnEntry = false,
               },
