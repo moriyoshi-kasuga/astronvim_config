@@ -6,6 +6,9 @@ return {
     config.sources = {
       null_ls.builtins.formatting.black.with { extra_args = { "--fast" } },
       null_ls.builtins.diagnostics.flake8.with { extra_args = { "--max-line-length", "88" } },
+      null_ls.builtins.diagnostics.cpplint.with {
+        args = { "--filter=-whitespace/comments,-legal/copyright", "$FILENAME" },
+      },
     }
     return config -- return final config table
   end,

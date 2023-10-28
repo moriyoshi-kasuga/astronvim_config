@@ -11,15 +11,6 @@ return {
     },
   },
   {
-    "HiPhish/rainbow-delimiters.nvim",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
-  },
-  {
-    "skanehira/jumpcursor.vim",
-    lazy = false,
-  },
-  {
     "uga-rosa/translate.nvim",
     lazy = false,
     opts = {

@@ -1,4 +1,5 @@
 local utils = require "astronvim.utils"
+local myutils = require "user.myutils"
 
 -- customize mason plugins
 return {
@@ -13,6 +14,7 @@ return {
         "isort",
         "djlint",
         "stylelint",
+        "cpplint",
         -- "prettier",
         -- "stylua",
       })
@@ -64,9 +66,11 @@ return {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {
       handlers = {
-        codelldb = function(source_name)
+        codelldb = function()
           local dap = require "dap"
+
           dap.adapters = {
+            ---@diagnostic disable-next-line: missing-fields
             codelldb = {
               type = "server",
               port = "${port}",
@@ -83,20 +87,16 @@ return {
                 name = "Launch file",
                 type = "codelldb",
                 request = "launch",
-                program = function()
-                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
-                end,
+                program = function() return myutils.getDebugCache "program" end,
                 cwd = "${fileDirname}",
                 stopOnEntry = false,
               },
               {
-                name = "Launch file with input.txt",
+                name = "Launch file with input",
                 type = "codelldb",
                 request = "launch",
-                stdio = "${fileDirname}/input.txt",
-                program = function()
-                  return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%:r", "file")
-                end,
+                program = function() return myutils.getDebugCache "program" end,
+                stdio = function() return myutils.getDebugCache "input" end,
                 cwd = "${fileDirname}",
                 stopOnEntry = false,
               },
@@ -104,38 +104,16 @@ return {
                 name = "Compile and Launch file",
                 type = "codelldb",
                 request = "launch",
-                program = function()
-                  local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%", "file")
-                  local directory = path:match "^(.*/)"
-                  local fileBase = path:match "^.*/(.*)%..*$"
-                  local basePath = directory .. fileBase
-                  local compileCmd = require("user.myutils").supported_filetypes["cpp"]["debug"]
-                    :gsub("%%", path)
-                    :gsub("$fileBase", basePath)
-                  local job_id = vim.fn.jobstart(compileCmd)
-                  vim.fn.jobwait({ job_id }, -1)
-                  return basePath
-                end,
+                program = function() return myutils.getDebugCache "compile" end,
                 cwd = "${fileDirname}",
                 stopOnEntry = false,
               },
               {
-                name = "Compile and Launch file with input.txt",
+                name = "Compile and Launch file with input",
                 type = "codelldb",
                 request = "launch",
-                stdio = "${fileDirname}/input.txt",
-                program = function()
-                  local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/" .. vim.fn.expand "%", "file")
-                  local directory = path:match "^(.*/)"
-                  local fileBase = path:match "^.*/(.*)%..*$"
-                  local basePath = directory .. fileBase
-                  local compileCmd = require("user.myutils").supported_filetypes["cpp"]["debug"]
-                    :gsub("%%", path)
-                    :gsub("$fileBase", basePath)
-                  local job_id = vim.fn.jobstart(compileCmd)
-                  vim.fn.jobwait({ job_id }, -1)
-                  return basePath
-                end,
+                program = function() return myutils.getDebugCache "compile" end,
+                stdio = function() return myutils.getDebugCache "input" end,
                 cwd = "${fileDirname}",
                 stopOnEntry = false,
               },

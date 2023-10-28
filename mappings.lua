@@ -8,6 +8,15 @@ return {
       function() utils.RunCode() end,
       desc = "RunCode",
     },
+    ["<leader>dd"] = {
+      function()
+        local cache = utils.getOrCreatePath "debug cache"
+        cache[utils.substitute "$filePath"] = nil
+        utils.saveCache()
+        vim.notify "Remve Debug Cache."
+      end,
+      desc = "Remvoe Debug Cache",
+    },
     ["]o"] = {
       function() require("todo-comments").jump_next() end,
       desc = "Next todo comment",
@@ -22,10 +31,6 @@ return {
         vim.cmd "update"
       end,
       desc = "format",
-    },
-    [";"] = {
-      "<Plug>(jumpcursor-jump)",
-      desc = "jump cursor",
     },
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
