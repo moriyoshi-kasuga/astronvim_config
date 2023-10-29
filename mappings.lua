@@ -17,6 +17,7 @@ return {
       end,
       desc = "Remvoe Debug Cache",
     },
+    ["<leader>du"] = { function() require("dapui").toggle { reset = true } end, desc = "Toggle Debugger UI" },
     ["]o"] = {
       function() require("todo-comments").jump_next() end,
       desc = "Next todo comment",
