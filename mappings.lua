@@ -1,12 +1,16 @@
 local utils = require "user.myutils"
 local removeDebugCache = {
   function()
-    local cache = utils.getOrCreatePath "debug cache"
-    cache[utils.substitute "$filePath"] = nil
-    utils.saveCache()
-    vim.notify "Remve Debug Cache."
+    local is_valid = utils.cache["useDebugCache"]
+    if is_valid then
+      utils.cache["useDebugCache"] = false
+      vim.notify "Debug Cache is Disabled"
+    else
+      utils.cache["useDebugCache"] = true
+      vim.notify "Debug Cache is Enabled"
+    end
   end,
-  desc = "Remvoe Debug Cache",
+  desc = "Toggle Use Debug Cache",
 }
 return {
   -- first key is the mode

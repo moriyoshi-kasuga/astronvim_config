@@ -184,29 +184,44 @@ function M.getInput()
   if co then return coroutine.yield() end
 end
 
+local debugCacheOption = {
+  program = {
+    path = function()
+      local debug = M.substitute "$dir/.debug/"
+      if not M.exists(debug) then os.execute("mkdir " .. debug) end
+      return debug .. M.substitute "$fileBase"
+    end,
+    saveCache = false,
+  },
+  compile = {
+    path = function()
+      local path = M.getDebugCache "program"
+      local compile = M.substitute "$file"
+      local compileCmd = M.supported_filetypes["cpp"]["debug"]:gsub("$fileBase", path):gsub("$file", compile)
+      local job_id = vim.fn.jobstart(compileCmd)
+      vim.fn.jobwait({ job_id }, -1)
+      return path
+    end,
+    saveCache = false,
+  },
+  input = {
+    path = M.getInput,
+    saveCache = true,
+  },
+}
+
 --- cache が あれば cache,なければ取得
 ---@param choice string ("program","compile","input")
 ---@return string
 function M.getDebugCache(choice)
-  if choice == "program" then
-    local debug = M.substitute "$dir/.debug/"
-    if not M.exists(debug) then os.execute("mkdir " .. debug) end
-    return debug .. M.substitute "$fileBase"
-  elseif choice == "compile" then
-    local path = M.getDebugCache "program"
-    local compile = M.substitute "$file"
-    local compileCmd = M.supported_filetypes["cpp"]["debug"]:gsub("$fileBase", path):gsub("$file", compile)
-    local job_id = vim.fn.jobstart(compileCmd)
-    vim.fn.jobwait({ job_id }, -1)
-    return path
-  end
-  local file_path = M.substitute "$filePath"
-  local c = M.getOrCreatePath("debug cache " .. file_path)
-  return M.requireNonNullElse(c[choice], function()
-    local path
-    if choice == "input" then path = M.getInput() end
-    c[choice] = path
-    M.saveCache()
+  local c = M.getOrCreatePath("debug cache " .. M.substitute "$filePath")
+  local s = (M.cache["useDebugCache"] and c[choice] or nil)
+  return M.requireNonNullElse(s, function()
+    local path = debugCacheOption[choice].path()
+    if debugCacheOption[choice].saveCache then
+      c[choice] = path
+      M.saveCache()
+    end
     return path
   end)
 end
