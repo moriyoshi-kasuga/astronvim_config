@@ -70,4 +70,8 @@ return {
       }
     end,
   },
+  {
+    "Exafunction/codeium.vim",
+    event = "User AstroFile",
+  },
 }

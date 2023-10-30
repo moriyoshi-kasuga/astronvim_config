@@ -1,9 +1,41 @@
 local utils = require "user.myutils"
 return {
   -- first key is the mode
+  i = {
+    ["<C-f>"] = {
+      function() return vim.fn["codeium#Accept"]() end,
+      desc = "Codeium Accept",
+      expr = true,
+    },
+    ["<C-n>"] = {
+      function() return vim.fn["codeium#CycleCompletions"](1) end,
+      desc = "Codeium Next Cycle",
+      expr = true,
+    },
+    ["<C-p>"] = {
+      function() return vim.fn["codeium#CycleCompletions"](-1) end,
+      desc = "Codeium Previous Cycle",
+      expr = true,
+    },
+    ["<C-x>"] = {
+      function() return vim.fn["codeium#Clear"]() end,
+      desc = "Codeium Clear",
+      expr = true,
+    },
+  },
   n = {
-    -- second key is the lefthand side of the map
-    -- mappings seen under group name "Buffer"
+    ["<leader>;"] = {
+      function()
+        if vim.g.codeium_enabled == true then
+          vim.cmd "CodeiumDisable"
+          vim.notify "Codeium Disable"
+        else
+          vim.cmd "CodeiumEnable"
+          vim.notify "Codeium Enable"
+        end
+      end,
+      desc = "Codeium Accept",
+    },
     ["<leader>dm"] = {
       function() utils.RunCode() end,
       desc = "RunCode",
