@@ -1,4 +1,13 @@
 local utils = require "user.myutils"
+local removeDebugCache = {
+  function()
+    local cache = utils.getOrCreatePath "debug cache"
+    cache[utils.substitute "$filePath"] = nil
+    utils.saveCache()
+    vim.notify "Remve Debug Cache."
+  end,
+  desc = "Remvoe Debug Cache",
+}
 return {
   -- first key is the mode
   i = {
@@ -40,15 +49,8 @@ return {
       function() utils.RunCode() end,
       desc = "RunCode",
     },
-    ["<leader>dd"] = {
-      function()
-        local cache = utils.getOrCreatePath "debug cache"
-        cache[utils.substitute "$filePath"] = nil
-        utils.saveCache()
-        vim.notify "Remve Debug Cache."
-      end,
-      desc = "Remvoe Debug Cache",
-    },
+    ["<leader>dd"] = removeDebugCache,
+    ["<F4>"] = removeDebugCache,
     ["<leader>du"] = { function() require("dapui").toggle { reset = true } end, desc = "Toggle Debugger UI" },
     ["]o"] = {
       function() require("todo-comments").jump_next() end,
