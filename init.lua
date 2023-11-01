@@ -6,6 +6,23 @@ return {
       },
       timeout_ms = 5000,
     },
+    config = {
+      clangd = function()
+        return {
+          capabilities = {
+            offsetEncoding = "utf-8",
+          },
+        }
+      end,
+      emmet_ls = function()
+        return {
+          filetypes = {
+            "html",
+            "htmldjango",
+          },
+        }
+      end,
+    },
   },
 
   -- Configure AstroNvim updates
