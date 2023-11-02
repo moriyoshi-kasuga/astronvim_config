@@ -3,58 +3,10 @@ local M = {}
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
-M.supported_filetypes = {
-  html = {
-    default = "$file",
-  },
-  c = {
-    default = "gcc $file -o $fileBase && $fileBase",
-    debug = "gcc -g $file -o $fileBase && $fileBase",
-  },
-  cs = {
-    default = "dotnet run",
-  },
-  cpp = {
-    default = "g++ -std=c++17 $file -o  $fileBase && ./$fileBase",
-    debug = "g++ -std=c++17 -g $file -o  $fileBase",
-    competitive = "g++ -std=c++17 -Wall -DAL -O2 $file -o $fileBase && ./$fileBase < $dir/input.txt",
-  },
-  py = {
-    default = "python $file",
-  },
-  go = {
-    default = "go run $file",
-  },
-  java = {
-    default = "java $file",
-  },
-  js = {
-    default = "node $file",
-    debug = "node --inspect $file",
-  },
-  ts = {
-    default = "tsc $file && node $fileBase",
-  },
-  rs = {
-    default = "rustc $file && $fileBase",
-  },
-  php = {
-    default = "php $file",
-  },
-  r = {
-    default = "Rscript $file",
-  },
-  jl = {
-    default = "julia $file",
-  },
-  rb = {
-    default = "ruby $file",
-  },
-  pl = {
-    default = "perl $file",
-  },
-}
-
+--- そのパスが存在するかどうか
+---@param file string file path
+---@return boolean suc
+---@return string? errmsg
 function M.exists(file)
   local ok, err, code = os.rename(file, file)
   if not ok then
@@ -66,14 +18,27 @@ function M.exists(file)
   return ok, err
 end
 
-function M.isdir(path)
-  -- "/" works on both Unix and Windows
-  return M.exists(path .. "/")
+function M.eval_option(option)
+  if type(option) == "function" then option = option() end
+  if type(option) == "thread" then
+    assert(coroutine.status(option) == "suspended", "If option is a thread it must be suspended")
+    local co = coroutine.running()
+    -- Schedule ensures `coroutine.resume` happens _after_ coroutine.yield
+    -- This is necessary in case the option coroutine is synchronous and
+    -- gives back control immediately
+    vim.schedule(function() coroutine.resume(option, co) end)
+    option = coroutine.yield()
+  end
+  return option
 end
 
-function M.requireNonNullElse(obj, nonNullObj)
-  return (obj and obj or (type(nonNullObj) == "function" and nonNullObj() or nonNullObj))
-end
+--- `ojb` が `nil` でなければ `obj` を返す,
+--- `ojb` が `nil` であれば `nonNullObj`を返す
+---@generic T
+---@param obj nil | T
+---@param nonNullObj T
+---@return T
+function M.requireNonNullElse(obj, nonNullObj) return obj and obj or nonNullObj end
 
 function M.split(input, delimiter)
   if delimiter == nil then delimiter = " " end
@@ -85,66 +50,37 @@ function M.split(input, delimiter)
   return result
 end
 
---- > 文字を置換してくれる
---- $file     = file name
---- $fileBase = excluded file extension name
---- $filePath = file path
---- $dir      = current file dir name
---- @param cmd string
---- @return string
-function M.substitute(cmd)
-  cmd = cmd:gsub("$fileExtension", vim.fn.expand "%:e")
-  cmd = cmd:gsub("$fileBase", vim.fn.expand "%:r")
-  cmd = cmd:gsub("$filePath", vim.fn.expand "%:p")
-  cmd = cmd:gsub("$file", vim.fn.expand "%")
-  cmd = cmd:gsub("$dir", vim.fn.expand "%:p:h")
-  return cmd
-end
-
-function M.RunCode()
-  local file_extension = M.substitute "$fileExtension"
-  local selected_cmd = ""
-  local term_cmd = "bot 10 new | term "
-
-  if M.supported_filetypes[file_extension] then
-    local choices = vim.tbl_keys(M.supported_filetypes[file_extension])
-
-    if #choices == 0 then
-      vim.notify("It doesn't contain any command", vim.log.levels.WARN, { title = "Code Runner" })
-    elseif #choices == 1 then
-      selected_cmd = M.supported_filetypes[file_extension][choices[1]]
-      vim.cmd(term_cmd .. M.substitute(selected_cmd))
-    else
-      vim.ui.select(choices, { prompt = "Choose a command: " }, function(choice)
-        selected_cmd = M.supported_filetypes[file_extension][choice]
-        if selected_cmd then vim.cmd(term_cmd .. M.substitute(selected_cmd)) end
-      end)
-    end
-  else
-    vim.notify("The filetype isn't included in the list", vim.log.levels.WARN, { title = "Code Runner" })
-  end
-end
-
+--- @type string cache file path
 M.cache_file = vim.fn.stdpath "cache" .. "/cache.lua"
+--- @type table cache table
 M.cache = {}
 
+--- cache を保存する
+---@param cache? table デフォルトでは `M.cache` を保存する
 function M.saveCache(cache)
   if cache == nil then cache = M.cache end
   local f = io.open(M.cache_file, "w")
+  ---@diagnostic disable-next-line: need-check-nil
   f:write("return " .. vim.inspect(cache))
+  ---@diagnostic disable-next-line: need-check-nil
   f:close()
 end
 
+--- キャッシュのロードをする
+---@return table
 function M.loadCache()
   if not M.exists(M.cache_file) then os.execute("touch " .. M.cache_file) end
   local _, cache = pcall(dofile, M.cache_file)
   return M.requireNonNullElse(cache, {})
 end
 
-function M.loadDefaultCache() M.cache = M.loadCache() end
+M.loadCache()
 
-M.loadDefaultCache()
-
+--- `tbl[key]` が `nil` の場合に `default` を返す
+---@param tbl table
+---@param key any
+---@param default any
+---@return any
 function M.getOrDefault(tbl, key, default)
   if tbl[key] == nil then
     return default
@@ -153,6 +89,10 @@ function M.getOrDefault(tbl, key, default)
   end
 end
 
+--- `path` のtableを返す。`path`がない場合には空tableを作成し値とする。
+---@param path string スペースで区切られたパス
+---@param tbl? table デフォルトでは M.cache を利用
+---@return table
 function M.getOrCreatePath(path, tbl)
   if tbl == nil then tbl = M.cache end
   local t = M.split(path)
@@ -163,9 +103,10 @@ function M.getOrCreatePath(path, tbl)
   return tbl
 end
 
---- Debug の input のファイルを選択
----@return string?
-function M.getInput()
+--- telescope で選択したファイルのパスを返す
+---@async
+---@return string
+function M.getChoiceFilePath()
   local co = coroutine.running()
   local cb = function(p) coroutine.resume(co, p) end
   cb = vim.schedule_wrap(cb)
@@ -184,46 +125,73 @@ function M.getInput()
   if co then return coroutine.yield() end
 end
 
-local debugCacheOption = {
-  program = {
-    path = function()
-      local debug = M.substitute "$dir/.debug/"
-      if not M.exists(debug) then os.execute("mkdir " .. debug) end
-      return debug .. M.substitute "$fileBase"
-    end,
-    saveCache = false,
+M.supported_filetypes = {
+  c = {
+    run = "${compile} && $debugPath",
+    compile = "gcc $file -o $debugPath",
+    debug = "gcc -g $file -o $debugPath",
   },
-  compile = {
-    path = function()
-      local path = M.getDebugCache "program"
-      local compile = M.substitute "$file"
-      local compileCmd = M.supported_filetypes["cpp"]["debug"]:gsub("$fileBase", path):gsub("$file", compile)
-      local job_id = vim.fn.jobstart(compileCmd)
-      vim.fn.jobwait({ job_id }, -1)
-      return path
-    end,
-    saveCache = false,
+  cpp = {
+    run = "${compile} && $debugPath",
+    runStdio = "${compile} && $debugPath < ${input}",
+    compile = "g++ -std=c++17 $file -o $debugPath",
+    debug = "g++ -std=c++17 -Wall -DAL -O2 $file -o $debugPath",
   },
-  input = {
-    path = M.getInput,
-    saveCache = true,
+  py = {
+    run = "python $file",
   },
 }
 
---- cache が あれば cache,なければ取得
----@param choice string ("program","compile","input")
----@return string
-function M.getDebugCache(choice)
-  local c = M.getOrCreatePath("debug cache " .. M.substitute "$filePath")
-  local s = (M.cache["useDebugCache"] and c[choice] or nil)
-  return M.requireNonNullElse(s, function()
-    local path = debugCacheOption[choice].path()
-    if debugCacheOption[choice].saveCache then
-      c[choice] = path
-      M.saveCache()
+function M.getDebugPath()
+  local debug = vim.fn.expand "%:p:h" .. "/.debug/"
+  if not M.exists(debug) then os.execute("mkdir " .. debug) end
+  return debug .. vim.fn.expand "%:r"
+end
+
+--- > 文字を置換してくれる
+--- @param cmd string
+--- @return string
+function M.substitute(cmd)
+  cmd = cmd:gsub("$fileExtension", vim.fn.expand "%:e")
+  cmd = cmd:gsub("$fileBase", vim.fn.expand "%:r")
+  cmd = cmd:gsub("$filePath", vim.fn.expand "%:p")
+  cmd = cmd:gsub("$file", vim.fn.expand "%")
+  cmd = cmd:gsub("$dir", vim.fn.expand "%:p:h")
+  cmd = cmd:gsub("$debugPath", M.getDebugPath())
+  return cmd
+end
+
+function M.RunCode()
+  local file_extension = vim.fn.expand "%:e"
+  local selected_cmd = ""
+  local term_cmd = "bot 10 new | term "
+
+  if M.supported_filetypes[file_extension] then
+    local choices = vim.tbl_keys(M.supported_filetypes[file_extension])
+
+    if #choices == 0 then
+      vim.notify("It doesn't contain any command", vim.log.levels.WARN, { title = "Code Runner" })
+    elseif #choices == 1 then
+      selected_cmd = M.supported_filetypes[file_extension][choices[1]]
+      vim.cmd(term_cmd .. M.substitute(selected_cmd))
+    else
+      vim.ui.select(choices, { prompt = "Choose a command: " }, function(choice)
+        local filetypes = M.supported_filetypes[file_extension]
+        selected_cmd = filetypes[choice]
+        if selected_cmd then
+          selected_cmd = selected_cmd:gsub("${compile}", filetypes["compile"])
+          selected_cmd = selected_cmd:gsub("${debug}", filetypes["debug"])
+          if selected_cmd:find "${input}" then
+            local stdioPath = M.eval_option(M.getChoiceFilePath())
+            selected_cmd = selected_cmd:gsub("${input}", stdioPath)
+          end
+          vim.cmd(term_cmd .. M.substitute(selected_cmd))
+        end
+      end)
     end
-    return path
-  end)
+  else
+    vim.notify("The filetype isn't included in the list", vim.log.levels.WARN, { title = "Code Runner" })
+  end
 end
 
 return M

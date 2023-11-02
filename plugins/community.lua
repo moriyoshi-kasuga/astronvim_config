@@ -13,7 +13,6 @@ return {
   { import = "astrocommunity.pack.prisma" },
   { import = "astrocommunity.pack.cpp" },
 
-  { import = "astrocommunity.scrolling.mini-animate" },
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
   { import = "astrocommunity.indent.indent-tools-nvim" },
