@@ -12,6 +12,7 @@ return {
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.prisma" },
   { import = "astrocommunity.pack.cpp" },
+  { import = "astrocommunity.pack.java" },
 
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
