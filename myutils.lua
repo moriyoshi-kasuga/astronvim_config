@@ -1,8 +1,5 @@
 local M = {}
 
-local actions = require "telescope.actions"
-local action_state = require "telescope.actions.state"
-
 --- そのパスが存在するかどうか
 ---@param file string file path
 ---@return boolean suc
@@ -104,7 +101,11 @@ function M.getOrCreatePath(path, tbl)
 end
 
 --- telescope で選択したファイルのパスを返す
----@async
+--- これを使用する際は coroutine を使用してください
+--- local run = coroutine.wrap(function()
+---   local path = myutils.getChoiceFilePath()
+---   -- ... このあとで path を使ってコードを実行する
+--- end)
 ---@return string
 function M.getChoiceFilePath()
   local co = coroutine.running()
@@ -114,6 +115,8 @@ function M.getChoiceFilePath()
     prompt_title = "Select a File",
     shorten_path = false,
     attach_mappings = function(prompt_bufnr, _)
+      local actions = require "telescope.actions"
+      local action_state = require "telescope.actions.state"
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
@@ -122,7 +125,7 @@ function M.getChoiceFilePath()
       return true
     end,
   }
-  if co then return coroutine.yield() end
+  return M.eval_option(coroutine.yield())
 end
 
 M.supported_filetypes = {
@@ -179,19 +182,29 @@ function M.RunCode()
         local filetypes = M.supported_filetypes[file_extension]
         selected_cmd = filetypes[choice]
         if selected_cmd then
-          selected_cmd = selected_cmd:gsub("${compile}", filetypes["compile"])
-          selected_cmd = selected_cmd:gsub("${debug}", filetypes["debug"])
-          if selected_cmd:find "${input}" then
-            local stdioPath = M.eval_option(M.getChoiceFilePath())
-            selected_cmd = selected_cmd:gsub("${input}", stdioPath)
-          end
-          vim.cmd(term_cmd .. M.substitute(selected_cmd))
+          local run = coroutine.wrap(function()
+            selected_cmd = selected_cmd:gsub("${compile}", filetypes["compile"])
+            selected_cmd = selected_cmd:gsub("${debug}", filetypes["debug"])
+            if selected_cmd:find "${input}" then selected_cmd = selected_cmd:gsub("${input}", M.getChoiceFilePath()) end
+            vim.cmd(term_cmd .. M.substitute(selected_cmd))
+          end)
+          run()
         end
       end)
     end
   else
     vim.notify("The filetype isn't included in the list", vim.log.levels.WARN, { title = "Code Runner" })
   end
+end
+
+function M.getPathAndRunDebug()
+  local file_extension = vim.fn.expand "%:e"
+  local filetype = M.supported_filetypes[file_extension]
+  local debug = filetype["debug"]
+  local compileCmd = M.substitute(debug)
+  local job_id = vim.fn.jobstart(compileCmd)
+  vim.fn.jobwait({ job_id }, -1)
+  return M.getDebugPath()
 end
 
 return M

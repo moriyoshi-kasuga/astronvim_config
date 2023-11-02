@@ -37,6 +37,10 @@ return {
     },
   },
   n = {
+    ["<leader>="] = {
+      utils.getChoiceFilePath,
+      desc = "Test",
+    },
     ["<leader>;"] = {
       function()
         if vim.g.codeium_enabled == true then
