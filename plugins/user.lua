@@ -129,7 +129,6 @@ return {
           contents = contents:gsub("%[(.-)%]%((.-)%)", "***%1***")
         end
         local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(contents)
-        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
         if vim.tbl_isempty(markdown_lines) then return end
         return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
       end, { border = "rounded" })
