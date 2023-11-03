@@ -37,16 +37,6 @@ end
 ---@return T
 function M.requireNonNullElse(obj, nonNullObj) return obj and obj or nonNullObj end
 
-function M.split(input, delimiter)
-  if delimiter == nil then delimiter = " " end
-
-  local result = {}
-  for word in input:gmatch("([^" .. delimiter .. "]+)") do
-    table.insert(result, word)
-  end
-  return result
-end
-
 --- telescope で選択したファイルのパスを返す
 --- これを使用する際は coroutine を使用してください
 --- local run = coroutine.wrap(function()

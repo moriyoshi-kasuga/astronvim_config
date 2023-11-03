@@ -1,7 +1,22 @@
 return {
+  diagnostics = {
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = false,
+  },
   lsp = {
     mappings = {
       n = {
+        ["<leader>lr"] = {
+          "<cmd>Lspsaga rename<cr>",
+          desc = "rename",
+        },
+        ["gd"] = {
+          "<cmd>lua vim.lsp.buf.definition()<cr>",
+          desc = "go to definition",
+        },
         ["<leader>ld"] = {
           "<cmd>Lspsaga show_line_diagnostics<cr>",
           desc = "show lien diagnostics",
@@ -76,11 +91,6 @@ return {
   -- colorscheme = "kanagawa",
   -- colorscheme = "catppuccin",
 
-  -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
-  diagnostics = {
-    virtual_text = true,
-    underline = true,
-  },
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
