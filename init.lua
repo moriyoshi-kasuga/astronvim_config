@@ -1,5 +1,33 @@
 return {
   lsp = {
+    mappings = {
+      n = {
+        K = {
+          "<cmd>Lspsaga hover_doc<cr>",
+          desc = "Hover",
+        },
+        ["<leader>ld"] = {
+          "<cmd>Lspsaga show_lien_diagnostics<cr>",
+          desc = "show lien diagnostics",
+        },
+        ["<leader>lD"] = {
+          "<cmd>Lspsaga show_buffer_diagnostics<cr>",
+          desc = "show buffer diagnostics",
+        },
+        ["<leader>l<C-d>"] = {
+          "<cmd>Lspsaga show_workspace_diagnostics<cr>",
+          desc = "show workspace diagnostics",
+        },
+        ["<C-j"] = {
+          "<cmd>Lspsaga diagnostic_jump_next<cr>",
+          desc = "Next diagnostic",
+        },
+        ["<C-k"] = {
+          "<cmd>Lspsaga diagnostic_jump_prev<cr>",
+          desc = "Previous diagnostic",
+        },
+      },
+    },
     formatting = {
       format_on_save = {
         enabled = false, -- enable or disable format on save globally

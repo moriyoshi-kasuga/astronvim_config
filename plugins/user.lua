@@ -75,12 +75,25 @@ return {
     event = "User AstroFile",
   },
   {
-    "folke/noice.nvim",
+    "nvimdev/lspsaga.nvim",
     event = "VeryLazy",
-    config = function() require("noice").setup {} end,
+    config = function()
+      require("lspsaga").setup {
+        ui = {
+          border = "rounded",
+        },
+      }
+    end,
     dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "ray-x/lsp_signature.nvim",
+      opts = {},
     },
   },
 }
