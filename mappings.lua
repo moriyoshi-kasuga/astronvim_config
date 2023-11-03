@@ -24,6 +24,38 @@ return {
     },
   },
   n = {
+    ["mw"] = {
+      "<cmd>HopWord<cr>",
+      desc = "HopWord",
+    },
+    ["mW"] = {
+      "<cmd>HopWordMW<cr>",
+      desc = "HopWordMW",
+    },
+    ["mm"] = {
+      "<cmd>HopAnywhere<cr>",
+      desc = "HopAnywhere",
+    },
+    ["mM"] = {
+      "<cmd>HopAnywhereMW<cr>",
+      desc = "HopAnywhereMW",
+    },
+    ["mf"] = {
+      "<cmd>HopChar1<cr>",
+      desc = "HopChar1",
+    },
+    ["mF"] = {
+      "<cmd>HopChar1MW<cr>",
+      desc = "HopChar1MW",
+    },
+    ["mk"] = {
+      "<cmd>HopChar2<cr>",
+      desc = "HopChar2",
+    },
+    ["mK"] = {
+      "<cmd>HopChar2MW<cr>",
+      desc = "HopChar2MW",
+    },
     ["<leader>;"] = {
       function()
         if vim.g.codeium_enabled == true then
