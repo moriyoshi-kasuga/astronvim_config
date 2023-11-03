@@ -82,6 +82,12 @@ return {
         ui = {
           border = "rounded",
         },
+        lightbulb = {
+          enable = false,
+        },
+        symbol_in_winbar = {
+          enable = false,
+        }
       }
     end,
     dependencies = {
@@ -94,6 +100,15 @@ return {
     dependencies = {
       "ray-x/lsp_signature.nvim",
       opts = {},
+    },
+  },
+  {
+    "mfussenegger/nvim-jdtls",
+    opts = {
+      settings = {
+        ["java.format.settings.url"] = vim.fn.stdpath "config" .. "/java-google-formatter.xml",
+        ["java.format.settings.profile"] = "GoogleStyle",
+      },
     },
   },
 }

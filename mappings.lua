@@ -1,17 +1,4 @@
-local utils = require "user.myutils"
-local removeDebugCache = {
-  function()
-    local is_valid = utils.cache["useDebugCache"]
-    if is_valid then
-      utils.cache["useDebugCache"] = false
-      vim.notify "Debug Cache is Disabled"
-    else
-      utils.cache["useDebugCache"] = true
-      vim.notify "Debug Cache is Enabled"
-    end
-  end,
-  desc = "Toggle Use Debug Cache",
-}
+local myutils = require "user.myutils"
 return {
   -- first key is the mode
   i = {
@@ -50,11 +37,9 @@ return {
       desc = "Codeium Accept",
     },
     ["<leader>dm"] = {
-      function() utils.RunCode() end,
+      function() myutils.RunCode() end,
       desc = "RunCode",
     },
-    ["<leader>dd"] = removeDebugCache,
-    ["<F4>"] = removeDebugCache,
     ["<leader>du"] = { function() require("dapui").toggle { reset = true } end, desc = "Toggle Debugger UI" },
     ["]o"] = {
       function() require("todo-comments").jump_next() end,

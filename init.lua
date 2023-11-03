@@ -7,11 +7,11 @@ return {
           desc = "Hover",
         },
         ["<leader>ld"] = {
-          "<cmd>Lspsaga show_lien_diagnostics<cr>",
+          "<cmd>Lspsaga show_line_diagnostics<cr>",
           desc = "show lien diagnostics",
         },
         ["<leader>lD"] = {
-          "<cmd>Lspsaga show_buffer_diagnostics<cr>",
+          "<cmd>Lspsaga show_buf_diagnostics<cr>",
           desc = "show buffer diagnostics",
         },
         ["<leader>l<C-d>"] = {
