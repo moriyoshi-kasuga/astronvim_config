@@ -76,7 +76,7 @@ return {
   },
   {
     "nvimdev/lspsaga.nvim",
-    event = "VeryLazy",
+    event = "User AstroFile",
     config = function()
       require("lspsaga").setup {
         ui = {
@@ -87,19 +87,15 @@ return {
         },
         symbol_in_winbar = {
           enable = false,
-        }
+        },
+        hover = {
+          max_width = 0.6,
+        },
       }
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
       "nvim-tree/nvim-web-devicons", -- optional
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "ray-x/lsp_signature.nvim",
-      opts = {},
     },
   },
   {
@@ -110,5 +106,33 @@ return {
         ["java.format.settings.profile"] = "GoogleStyle",
       },
     },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function(...)
+      -- run AstroNvim core lspconfig setup
+      require "plugins.configs.lspconfig"(...)
+
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(function(_, result, ctx, config)
+        local file_extension = vim.fn.expand "%:e"
+        if file_extension ~= "java" then return vim.lsp.handlers.hover(_, result, ctx, config) end
+        config = config or {}
+        config.focus_id = ctx.method
+        if not (result and result.contents) then return end
+        local contents = result.contents
+        if type(result.contents) == "table" then
+          contents = vim.tbl_map(
+            function(v) return type(v) == "string" and v:gsub("%[(.-)%]%((.-)%)", "***%1***") or v end,
+            contents
+          )
+        else
+          contents = contents:gsub("%[(.-)%]%((.-)%)", "***%1***")
+        end
+        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(contents)
+        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+        if vim.tbl_isempty(markdown_lines) then return end
+        return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
+      end, { border = "rounded" })
+    end,
   },
 }

@@ -14,6 +14,7 @@ return {
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.java" },
 
+  { import = "astrocommunity.lsp.lsp-signature-nvim" },
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
 
   { import = "astrocommunity.indent.indent-tools-nvim" },

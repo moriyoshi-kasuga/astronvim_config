@@ -2,10 +2,6 @@ return {
   lsp = {
     mappings = {
       n = {
-        K = {
-          "<cmd>Lspsaga hover_doc<cr>",
-          desc = "Hover",
-        },
         ["<leader>ld"] = {
           "<cmd>Lspsaga show_line_diagnostics<cr>",
           desc = "show lien diagnostics",
