@@ -73,21 +73,6 @@ return {
   {
     "Exafunction/codeium.vim",
     event = "User AstroFile",
-    keys = {
-      {
-        "<leader>;",
-        function()
-          if vim.g.codeium_enabled == true then
-            vim.cmd "CodeiumDisable"
-            vim.notify "Codeium Disable"
-          else
-            vim.cmd "CodeiumEnable"
-            vim.notify "Codeium Enable"
-          end
-        end,
-        desc = "Codeium Accept",
-      },
-    },
   },
   {
     "nvimdev/lspsaga.nvim",
@@ -137,7 +122,15 @@ return {
         local contents = result.contents
         if type(result.contents) == "table" then
           contents = vim.tbl_map(
-            function(v) return type(v) == "string" and v:gsub("%[(.-)%]%((.-)%)", "***%1***") or v end,
+            function(v)
+              return type(v) == "string"
+                  and v:gsub("%[(.-)%]%((.-)%)", "%1")
+                    :gsub("<b>", "**")
+                    :gsub("</b>", "**")
+                    :gsub("<i>", "*")
+                    :gsub("</i>", "*")
+                or v
+            end,
             contents
           )
         else
@@ -152,7 +145,34 @@ return {
   {
     "phaazon/hop.nvim",
     event = "User AstroFile",
-    config = function() require("hop").setup { keys = "etovxqpdygfblzhckisuran" } end,
+  },
+  {
+    "FotiadisM/tabset.nvim",
+    config = function()
+      require("tabset").setup {
+        defaults = {
+          tabwidth = 4,
+          expandtab = false,
+        },
+        languages = {
+          {
+            filetypes = {
+              "html",
+              "css",
+              "javascript",
+              "typescript",
+              "javascriptreact",
+              "typescriptreact",
+              "json",
+              "yaml",
+            },
+            config = {
+              tabwidth = 2,
+            },
+          },
+        },
+      }
+    end,
     keys = {
       { "mw", "<cmd>HopWord<cr>", desc = "HopWord" },
       { "mW", "<cmd>HopWordMW<cr>", desc = "HopWordMW" },

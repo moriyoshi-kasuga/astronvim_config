@@ -37,9 +37,13 @@ return {
       function() require("todo-comments").jump_prev() end,
       desc = "Previous todo comment",
     },
-    ["<leader>w"] = false,
-    ["<leader>r"] = false,
-    ["<leader>q"] = false,
+    ["<leader>r"] = {
+      function()
+        vim.lsp.buf.format { async = false }
+        vim.cmd "update"
+      end,
+      desc = "format",
+    },
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },

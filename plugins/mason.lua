@@ -1,4 +1,3 @@
-local utils = require "astronvim.utils"
 local myutils = require "user.myutils"
 
 -- customize mason plugins
@@ -11,36 +10,8 @@ return {
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
         "flake8",
-        "isort",
         "djlint",
-        "stylelint",
-        -- "prettier",
-        -- "stylua",
       })
-
-      if not opts.handlers then opts.handlers = {} end
-
-      local has_stylelint = function(util)
-        return util.root_has_file ".stylelint"
-          or util.root_has_file ".stylelintrc.json"
-          or util.root_has_file ".stylelintrc.yml"
-          or util.root_has_file ".stylelintrc.yaml"
-          or util.root_has_file ".stylelintrc.js"
-          or util.root_has_file "stylelint.config.js"
-      end
-
-      opts.handlers.stylelint = function()
-        local null_ls = require "null-ls"
-        null_ls.register(null_ls.builtins.formatting.stylelint.with { condition = has_stylelint })
-      end
-    end,
-  },
-
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = function(_, opts)
-      if not opts.handlers then opts.handlers = {} end
-      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "emmet_ls" })
     end,
   },
 
