@@ -73,6 +73,21 @@ return {
   {
     "Exafunction/codeium.vim",
     event = "User AstroFile",
+    keys = {
+      {
+        "<leader>;",
+        function()
+          if vim.g.codeium_enabled == true then
+            vim.cmd "CodeiumDisable"
+            vim.notify "Codeium Disable"
+          else
+            vim.cmd "CodeiumEnable"
+            vim.notify "Codeium Enable"
+          end
+        end,
+        desc = "Codeium Accept",
+      },
+    },
   },
   {
     "nvimdev/lspsaga.nvim",
@@ -137,9 +152,32 @@ return {
   {
     "phaazon/hop.nvim",
     event = "User AstroFile",
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
-    end,
+    config = function() require("hop").setup { keys = "etovxqpdygfblzhckisuran" } end,
+    keys = {
+      { "mw", "<cmd>HopWord<cr>", desc = "HopWord" },
+      { "mW", "<cmd>HopWordMW<cr>", desc = "HopWordMW" },
+      { "mm", "<cmd>HopAnywhere<cr>", desc = "HopAnywhere" },
+      { "mM", "<cmd>HopAnywhereMW<cr>", desc = "HopAnywhereMW" },
+      { "mf", "<cmd>HopChar1<cr>", desc = "HopChar1" },
+      { "mF", "<cmd>HopChar1MW<cr>", desc = "HopChar1MW" },
+      { "mk", "<cmd>HopChar2<cr>", desc = "HopChar2" },
+      { "mK", "<cmd>HopChar2MW<cr>", desc = "HopChar2MW" },
+    },
+  },
+  {
+    "ThePrimeagen/harpoon",
+    keys = {
+      {
+        "<leader><leader>e",
+        function()
+          if vim.v.count > 0 then
+            require("harpoon.ui").nav_file(vim.v.count)
+          else
+            require("harpoon.ui").toggle_quick_menu()
+          end
+        end,
+        desc = "Move to file",
+      },
+    },
   },
 }

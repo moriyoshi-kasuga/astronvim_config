@@ -24,53 +24,9 @@ return {
     },
   },
   n = {
-    ["mw"] = {
-      "<cmd>HopWord<cr>",
-      desc = "HopWord",
-    },
-    ["mW"] = {
-      "<cmd>HopWordMW<cr>",
-      desc = "HopWordMW",
-    },
-    ["mm"] = {
-      "<cmd>HopAnywhere<cr>",
-      desc = "HopAnywhere",
-    },
-    ["mM"] = {
-      "<cmd>HopAnywhereMW<cr>",
-      desc = "HopAnywhereMW",
-    },
-    ["mf"] = {
-      "<cmd>HopChar1<cr>",
-      desc = "HopChar1",
-    },
-    ["mF"] = {
-      "<cmd>HopChar1MW<cr>",
-      desc = "HopChar1MW",
-    },
-    ["mk"] = {
-      "<cmd>HopChar2<cr>",
-      desc = "HopChar2",
-    },
-    ["mK"] = {
-      "<cmd>HopChar2MW<cr>",
-      desc = "HopChar2MW",
-    },
-    ["<leader>;"] = {
-      function()
-        if vim.g.codeium_enabled == true then
-          vim.cmd "CodeiumDisable"
-          vim.notify "Codeium Disable"
-        else
-          vim.cmd "CodeiumEnable"
-          vim.notify "Codeium Enable"
-        end
-      end,
-      desc = "Codeium Accept",
-    },
     ["<leader>dm"] = {
       function() myutils.RunCode() end,
-      desc = "RunCode",
+      desc = "CodeRunner",
     },
     ["<leader>du"] = { function() require("dapui").toggle { reset = true } end, desc = "Toggle Debugger UI" },
     ["]o"] = {
@@ -81,13 +37,9 @@ return {
       function() require("todo-comments").jump_prev() end,
       desc = "Previous todo comment",
     },
-    ["<leader>r"] = {
-      function()
-        vim.lsp.buf.format { async = false }
-        vim.cmd "update"
-      end,
-      desc = "format",
-    },
+    ["<leader>w"] = false,
+    ["<leader>r"] = false,
+    ["<leader>q"] = false,
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = { "<cmd>tabclose<cr>", desc = "Close tab" },
     ["<leader>h"] = { "<cmd>noh<cr>", desc = "clear higlight" },
