@@ -25,7 +25,6 @@ return {
   { import = "astrocommunity.editing-support.neogen" },
 
   { import = "astrocommunity.motion.nvim-surround" },
-  { import = "astrocommunity.motion.harpoon" },
 
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
 }
