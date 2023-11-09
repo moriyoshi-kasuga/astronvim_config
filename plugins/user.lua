@@ -145,6 +145,20 @@ return {
   {
     "phaazon/hop.nvim",
     event = "User AstroFile",
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
+    end,
+    keys = {
+      { "mw", "<cmd>HopWord<cr>", desc = "HopWord" },
+      { "mW", "<cmd>HopWordMW<cr>", desc = "HopWordMW" },
+      { "mm", "<cmd>HopAnywhere<cr>", desc = "HopAnywhere" },
+      { "mM", "<cmd>HopAnywhereMW<cr>", desc = "HopAnywhereMW" },
+      { "mf", "<cmd>HopChar1<cr>", desc = "HopChar1" },
+      { "mF", "<cmd>HopChar1MW<cr>", desc = "HopChar1MW" },
+      { "mk", "<cmd>HopChar2<cr>", desc = "HopChar2" },
+      { "mK", "<cmd>HopChar2MW<cr>", desc = "HopChar2MW" },
+    },
   },
   {
     "FotiadisM/tabset.nvim",
@@ -173,16 +187,6 @@ return {
         },
       }
     end,
-    keys = {
-      { "mw", "<cmd>HopWord<cr>", desc = "HopWord" },
-      { "mW", "<cmd>HopWordMW<cr>", desc = "HopWordMW" },
-      { "mm", "<cmd>HopAnywhere<cr>", desc = "HopAnywhere" },
-      { "mM", "<cmd>HopAnywhereMW<cr>", desc = "HopAnywhereMW" },
-      { "mf", "<cmd>HopChar1<cr>", desc = "HopChar1" },
-      { "mF", "<cmd>HopChar1MW<cr>", desc = "HopChar1MW" },
-      { "mk", "<cmd>HopChar2<cr>", desc = "HopChar2" },
-      { "mK", "<cmd>HopChar2MW<cr>", desc = "HopChar2MW" },
-    },
   },
   {
     "ThePrimeagen/harpoon",
