@@ -192,7 +192,7 @@ return {
     "ThePrimeagen/harpoon",
     keys = {
       {
-        "<leader><leader>e",
+        "<leader>n",
         function()
           if vim.v.count > 0 then
             require("harpoon.ui").nav_file(vim.v.count)
