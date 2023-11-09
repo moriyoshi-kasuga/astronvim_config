@@ -24,6 +24,17 @@ return {
     },
   },
   n = {
+    ["<leader>n"] = {
+
+      function()
+        if vim.v.count > 0 then
+          require("harpoon.ui").nav_file(vim.v.count)
+        else
+          require("harpoon.ui").toggle_quick_menu()
+        end
+      end,
+      desc = "Move to file",
+    },
     ["<leader>dm"] = {
       function() myutils.RunCode() end,
       desc = "CodeRunner",
