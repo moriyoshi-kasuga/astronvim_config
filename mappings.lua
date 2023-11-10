@@ -24,6 +24,30 @@ return {
     },
   },
   n = {
+    ["<C-a>"] = {
+      function() require("harpoon.mark").add_file() end,
+      desc = "Harpoon: Add file",
+    },
+    ["<C-s>"] = {
+      function() require("harpoon.ui").toggle_quick_menu() end,
+      desc = "Harpoon: Toggle quick menu",
+    },
+    ["<C-m>"] = {
+      function() require("telescope").extensions.harpoon.marks() end,
+      desc = "Harpoon: Marks",
+    },
+    ["<C-n>"] = {
+      function() require("harpoon.ui").nav_next() end,
+      desc = "Harpoon: Next",
+    },
+    ["<C-p>"] = {
+      function() require("harpoon.ui").nav_prev() end,
+      desc = "Harpoon: Previous",
+    },
+    ["<C-i>"] = {
+      function() require("telescope.builtin").find_files() end,
+      desc = "Find Files",
+    },
     ["<leader>dm"] = {
       function() myutils.RunCode() end,
       desc = "CodeRunner",
