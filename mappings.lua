@@ -61,6 +61,18 @@ return {
       function() require("todo-comments").jump_prev() end,
       desc = "Previous todo comment",
     },
+    ["<leader>;"] = {
+      function()
+        if vim.g.codeium_enabled == true then
+          vim.cmd "CodeiumDisable"
+          vim.notify "Codeium Disable"
+        else
+          vim.cmd "CodeiumEnable"
+          vim.notify "Codeium Enable"
+        end
+      end,
+      desc = "Codeium Accept",
+    },
     ["<leader>r"] = {
       function()
         vim.lsp.buf.format { async = false }
