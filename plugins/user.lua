@@ -162,6 +162,7 @@ return {
   },
   {
     "FotiadisM/tabset.nvim",
+    event = "User AstroFile",
     config = function()
       require("tabset").setup {
         defaults = {
@@ -179,6 +180,7 @@ return {
               "typescriptreact",
               "json",
               "yaml",
+              "markdown",
             },
             config = {
               tabwidth = 2,
