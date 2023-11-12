@@ -24,6 +24,10 @@ return {
     },
   },
   n = {
+    ["<leader>i"] = {
+      "<cmd>UndotreeToggle<cr>",
+      desc = "Toggle UndoTree",
+    },
     ["<C-a>"] = {
       function() require("harpoon.mark").add_file() end,
       desc = "Harpoon: Add file",

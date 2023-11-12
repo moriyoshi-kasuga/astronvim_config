@@ -172,6 +172,7 @@ return {
         languages = {
           {
             filetypes = {
+              "lua",
               "html",
               "css",
               "javascript",
@@ -218,5 +219,9 @@ return {
         },
       },
     },
+  },
+  {
+    "mbbill/undotree",
+    event = "User AstroFile",
   },
 }
