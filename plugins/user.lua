@@ -162,38 +162,20 @@ return {
   },
   {
     "FotiadisM/tabset.nvim",
-    event = "User AstroFile",
+    lazy = false,
     config = function()
       require("tabset").setup {
         defaults = {
-          tabwidth = 4,
-          expandtab = false,
-        },
-        languages = {
-          {
-            filetypes = {
-              "lua",
-              "html",
-              "css",
-              "javascript",
-              "typescript",
-              "javascriptreact",
-              "typescriptreact",
-              "json",
-              "yaml",
-              "markdown",
-            },
-            config = {
-              tabwidth = 2,
-            },
-          },
+          tabwidth = 2,
+          shiftwidth = 2,
+          expandtab = true,
         },
       }
     end,
   },
   {
     "ThePrimeagen/harpoon",
-    event = "User AstroFile",
+    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
@@ -222,6 +204,6 @@ return {
   },
   {
     "mbbill/undotree",
-    event = "User AstroFile",
+    lazy = false,
   },
 }
