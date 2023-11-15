@@ -82,9 +82,9 @@ return {
     },
   },
 
-  -- colorscheme = "astrodark",
+  colorscheme = "astrodark",
   -- colorscheme = "noctis",
-  colorscheme = "vscode",
+  -- colorscheme = "vscode",
   -- colorscheme = "tokyonight",
   -- colorscheme = "tokyodark",
   -- colorscheme = "nightfox",

@@ -168,7 +168,14 @@ return {
         defaults = {
           tabwidth = 2,
           shiftwidth = 2,
-          expandtab = true,
+          expandtab = false,
+        },
+        languages = {
+          {
+            filetype = "python",
+            tabwidth = 4,
+            shiftwidth = 4,
+          },
         },
       }
     end,
