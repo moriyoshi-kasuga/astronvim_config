@@ -16,6 +16,10 @@
     "lua_ls": {
       "Lua.format.enable": false
     },
+    "html":{
+    	"html.format.indentHandlebars": true,
+    	"html.format.indentInnerHtml": true
+    },
     "pyright": {
       "python.analysis.typeCheckingMode": "off"
     }
