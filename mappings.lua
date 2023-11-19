@@ -57,7 +57,15 @@ return {
       desc = "Harpoon: Previous",
     },
     ["<C-i>"] = {
-      function() require("telescope.builtin").find_files() end,
+      function()
+        local path = vim.loop.cwd() .. "/.git"
+        local ok, _ = vim.loop.fs_stat(path)
+        if ok then
+          require("telescope.builtin").git_files()
+        else
+          require("telescope.builtin").find_files()
+        end
+      end,
       desc = "Find Files",
     },
     ["<leader>dm"] = {
