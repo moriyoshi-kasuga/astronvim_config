@@ -24,6 +24,14 @@ return {
     },
   },
   n = {
+    ["\\"] = {
+      "<cmd>vsplit<cr>",
+      desc = "Vertical Split",
+    },
+    ["-"] = {
+      "<cmd>split<cr>",
+      desc = "Horizontal Split",
+    },
     ["<leader>i"] = {
       "<cmd>UndotreeToggle<cr>",
       desc = "Toggle UndoTree",
