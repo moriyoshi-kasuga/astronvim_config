@@ -45,8 +45,8 @@ return {
       desc = "Harpoon: Toggle quick menu",
     },
     ["<C-m>"] = {
-      function() require("telescope").extensions.harpoon.marks() end,
-      desc = "Harpoon: Marks",
+      function() require("telescope.buildtin").git_files() end,
+      desc = "Find Git Files",
     },
     ["<C-n>"] = {
       function() require("harpoon.ui").nav_next() end,
@@ -57,15 +57,7 @@ return {
       desc = "Harpoon: Previous",
     },
     ["<C-i>"] = {
-      function()
-        local path = vim.loop.cwd() .. "/.git"
-        local ok, _ = vim.loop.fs_stat(path)
-        if ok then
-          require("telescope.builtin").git_files()
-        else
-          require("telescope.builtin").find_files()
-        end
-      end,
+      function() require("telescope.builtin").find_files() end,
       desc = "Find Files",
     },
     ["<leader>dm"] = {
