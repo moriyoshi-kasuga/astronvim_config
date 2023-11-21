@@ -165,15 +165,22 @@ return {
     config = function()
       require("tabset").setup {
         defaults = {
-          tabwidth = 2,
-          shiftwidth = 2,
           expandtab = false,
         },
         languages = {
           {
+            filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "yaml", "html" },
+            config = {
+              tabwidth = 2,
+              shitfitwidth = 2,
+            },
+          },
+          {
             filetype = { "python" },
-            tabwidth = 4,
-            shiftwidth = 4,
+            config = {
+              tabwidth = 4,
+              shiftwidth = 4,
+            },
           },
         },
       }
