@@ -44,7 +44,7 @@ return {
       function() require("harpoon.ui").toggle_quick_menu() end,
       desc = "Harpoon: Toggle quick menu",
     },
-    ["<C-m>"] = {
+    ["<leader>fg"] = {
       function() require("telescope.builtin").git_files() end,
       desc = "Find Git Files",
     },
