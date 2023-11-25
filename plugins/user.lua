@@ -168,18 +168,28 @@ return {
           expandtab = false,
         },
         languages = {
+          yaml = {
+            tabwidth = 2,
+            expandtab = true,
+          },
           {
-            filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "yaml", "html" },
+            filetypes = {
+              "javascript",
+              "typescript",
+              "javascriptreact",
+              "typescriptreact",
+              "json",
+              "html",
+              "lua",
+            },
             config = {
               tabwidth = 2,
-              shitfitwidth = 2,
             },
           },
           {
             filetype = { "python" },
             config = {
               tabwidth = 4,
-              shiftwidth = 4,
             },
           },
         },
