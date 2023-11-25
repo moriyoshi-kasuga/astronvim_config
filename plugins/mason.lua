@@ -1,14 +1,15 @@
 local myutils = require "user.myutils"
+local utils = require "astronvim.utils"
 
--- customize mason plugins
 return {
-
+  {
+    "williamboman/mason-lspconfig.nvim",
+    opts = function(_, opts) opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "jdtls" }) end,
+  },
   {
     "jay-babu/mason-null-ls.nvim",
-    -- overrides `require("mason-null-ls").setup(...)`
     opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, {
         "flake8",
         "djlint",
       })
@@ -17,8 +18,9 @@ return {
 
   {
     "jay-babu/mason-nvim-dap.nvim",
-    opts = {
-      handlers = {
+    opts = function(_, opts)
+      opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "javadbg", "javatest" })
+      opts.handlers = {
         codelldb = function()
           local dap = require "dap"
 
@@ -73,7 +75,7 @@ return {
             },
           }
         end,
-      },
-    },
+      }
+    end,
   },
 }

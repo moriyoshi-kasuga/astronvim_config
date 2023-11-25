@@ -111,15 +111,6 @@ return {
     },
   },
   {
-    "mfussenegger/nvim-jdtls",
-    opts = {
-      settings = {
-        ["java.format.settings.url"] = vim.fn.stdpath "config" .. "/java-google-formatter.xml",
-        ["java.format.settings.profile"] = "GoogleStyle",
-      },
-    },
-  },
-  {
     "neovim/nvim-lspconfig",
     config = function(...)
       -- run AstroNvim core lspconfig setup

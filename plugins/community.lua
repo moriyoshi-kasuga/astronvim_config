@@ -12,7 +12,6 @@ return {
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.prisma" },
   { import = "astrocommunity.pack.cpp" },
-  { import = "astrocommunity.pack.java" },
   { import = "astrocommunity.pack.html-css" },
 
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
