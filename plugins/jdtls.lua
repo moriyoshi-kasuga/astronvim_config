@@ -70,12 +70,11 @@ return {
           maven = {
             downloadSources = true,
           },
-
           implementationsCodeLens = {
             enabled = true,
           },
           referencesCodeLens = {
-            enabled = true,
+            enabled = false,
           },
         },
         signatureHelp = {
