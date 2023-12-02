@@ -165,6 +165,8 @@ return {
           },
           {
             filetypes = {
+              "java",
+              "class",
               "javascript",
               "typescript",
               "javascriptreact",
