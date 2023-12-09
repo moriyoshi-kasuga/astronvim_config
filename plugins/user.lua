@@ -174,6 +174,7 @@ return {
               "json",
               "html",
               "lua",
+              "kotlin",
             },
             config = {
               tabwidth = 2,
