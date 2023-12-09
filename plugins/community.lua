@@ -13,7 +13,6 @@ return {
   { import = "astrocommunity.pack.prisma" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.html-css" },
-  { import = "astrocommunity.pack.kotlin" },
 
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
